@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    agent { label 'python_agent'}
+    #agent any
 
     stages {
         stage('First_stage') {
