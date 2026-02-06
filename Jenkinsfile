@@ -5,6 +5,7 @@ pipeline {
         stage('First_stage') {
             steps {
                 echo 'this is first stage'
+                echo 'executtion triggered from github'
             }
         }
         
