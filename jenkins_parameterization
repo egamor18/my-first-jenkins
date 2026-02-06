@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(
+            name: 'BRANCH_NAME',
+            defaultValue: 'master',
+            description: 'Git branch to build'
+        )
+
+        booleanParam(
+            name: 'RUN_TESTS',
+            defaultValue: true,
+            description: 'Run unit tests'
+        )
+
+        choice(
+            name: 'ENV',
+            choices: ['dev', 'staging', 'prod'],
+            description: 'Target environment'
+        )
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: params.BRANCH_NAME,
+                    url: 'https://github.com/egamor18/my-first-jenkins'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Building for ${params.ENV}"
+            }
+        }
+
+        stage('Test') {
+            when {
+                expression { params.RUN_TESTS }
+            }
+            steps {
+                echo "Running tests"
+            }
+        }
+    }
+}
